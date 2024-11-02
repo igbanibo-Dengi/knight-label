@@ -1,5 +1,5 @@
 import ArtistProfile from '@/components/ArtistProfile'
-import { client, sanityFetch } from '@/sanity/lib/client'
+import { sanityFetch } from '@/sanity/lib/client'
 import { SINGLE_ARTISTS_QUERY } from '@/sanity/lib/queries'
 
 export const revalidate = 20
