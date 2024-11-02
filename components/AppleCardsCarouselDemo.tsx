@@ -10,12 +10,12 @@ export function AppleCardsCarouselDemo() {
 
     return (
         <div className="w-full h-full py-20 bg-[url('https://images.pexels.com/photos/10376542/pexels-photo-10376542.jpeg')] bg-fixed bg-cover bg-center bg-no-repeat">
-            <h2 className="max-w-7xl text-center pl-4 mx-auto text-xl md:text-5xl font-bold text-neutral-800 dark:text-neutral-200 font-sans">
+            <h2 className="max-w-7xl text-center mx-auto text-4xl md:text-5xl font-bold text-neutral-800 dark:text-neutral-200 font-sans">
                 Recent Releases
             </h2>
             <Carousel items={cards} />
-            <div className="container max-w-[1200px] -translate-y-5 mx-auto flex items-start pl-10">
-                <Link href="#" className="btn-shine">View All</Link>
+            <div className="container max-w-[1200px] -translate-y-5 mx-auto flex items-start pl-16 md:pl-10">
+                <Link href="#" className="btn-shine text-xl">View All</Link>
             </div>
         </div>
     );
