@@ -2,8 +2,6 @@ import ArtistProfile from '@/components/ArtistProfile'
 import { sanityFetch } from '@/sanity/lib/client'
 import { SINGLE_ARTISTS_QUERY } from '@/sanity/lib/queries'
 
-export const revalidate = 20
-
 export default async function ArtistPage({
     params,
 }: {

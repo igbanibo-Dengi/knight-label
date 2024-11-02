@@ -5,9 +5,6 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { ARTISTS_QUERY } from '@/sanity/lib/queries'
 
-export const revalidate = 20
-
-
 export default async function ArtistsPage() {
 
     const artists = await sanityFetch({ query: ARTISTS_QUERY });
