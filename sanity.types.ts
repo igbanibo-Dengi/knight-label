@@ -254,7 +254,7 @@ export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ./sanity/lib/queries.ts
 // Variable: ARTISTS_QUERY
-// Query: *[_type == "artist"] {    _id,    name,    slug,    image,    tags  }
+// Query: *[_type == "artist"] {    _id,    name,    slug,    image,  }
 export type ARTISTS_QUERYResult = Array<{
   _id: string;
   name: string | null;
@@ -271,13 +271,55 @@ export type ARTISTS_QUERYResult = Array<{
     alt?: string;
     _type: "image";
   } | null;
-  tags: Array<string> | null;
 }>;
+// Variable: SINGLE_ARTISTS_QUERY
+// Query: * [_type == "artist" && slug.current == $slug][0] {    _id,    name,    slug,    image,    bio,    socialLinks,  }
+export type SINGLE_ARTISTS_QUERYResult = {
+  _id: string;
+  name: string | null;
+  slug: Slug | null;
+  image: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: "image";
+  } | null;
+  bio: Array<{
+    children?: Array<{
+      marks?: Array<string>;
+      text?: string;
+      _type: "span";
+      _key: string;
+    }>;
+    style?: "blockquote" | "h2" | "h3" | "normal";
+    listItem?: "bullet" | "number";
+    markDefs?: Array<{
+      href?: string;
+      _type: "link";
+      _key: string;
+    }>;
+    level?: number;
+    _type: "block";
+    _key: string;
+  }> | null;
+  socialLinks: Array<{
+    platform?: string;
+    url?: string;
+    _key: string;
+  }> | null;
+} | null;
 
 // Query TypeMap
 import "@sanity/client";
 declare module "@sanity/client" {
   interface SanityQueries {
-    "*[_type == \"artist\"] {\n    _id,\n    name,\n    slug,\n    image,\n    tags\n  }": ARTISTS_QUERYResult;
+    "*[_type == \"artist\"] {\n    _id,\n    name,\n    slug,\n    image,\n  }": ARTISTS_QUERYResult;
+    " * [_type == \"artist\" && slug.current == $slug][0] {\n    _id,\n    name,\n    slug,\n    image,\n    bio,\n    socialLinks,\n  }": SINGLE_ARTISTS_QUERYResult;
   }
 }

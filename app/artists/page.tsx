@@ -39,15 +39,6 @@ export default async function ArtistsPage() {
                                     </div>
                                 )}
                             </CardContent>
-                            <CardFooter>
-                                <div className="flex flex-wrap gap-2">
-                                    {artist.tags?.map((tag: string) => (
-                                        <Badge key={tag} variant="secondary">
-                                            {tag}
-                                        </Badge>
-                                    ))}
-                                </div>
-                            </CardFooter>
                         </Card>
                     </Link>
                 ))}
