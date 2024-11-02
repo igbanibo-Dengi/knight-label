@@ -1,19 +1,22 @@
-import { client } from '@/sanity/lib/client'
+import { client, sanityFetch } from '@/sanity/lib/client'
 import { urlFor } from '@/sanity/lib/image'
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import Image from 'next/image'
 import Link from 'next/link'
 import { ARTISTS_QUERY } from '@/sanity/lib/queries'
 
+export const revalidate = 20
+
+
 export default async function ArtistsPage() {
 
-    const artists = await client
-        .withConfig({
-            useCdn: false,
-        })
-        .fetch(ARTISTS_QUERY)
+    // const posts = await sanityFetch({ query: POSTS_QUERY });
 
-    // console.log(artists);
+    const artists = await sanityFetch({ query: ARTISTS_QUERY });
+
+
+    // const artists = await client
+    // .fetch(ARTISTS_QUERY)
 
 
     return (
