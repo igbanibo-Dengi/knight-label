@@ -14,7 +14,7 @@ export default async function ArtistsPage() {
         })
         .fetch(ARTISTS_QUERY)
 
-    console.log(artists);
+    // console.log(artists);
 
 
     return (

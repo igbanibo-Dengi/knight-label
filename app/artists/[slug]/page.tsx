@@ -1,34 +1,20 @@
 import ArtistProfile from '@/components/ArtistProfile'
 import { client } from '@/sanity/lib/client'
+import { SINGLE_ARTISTS_QUERY } from '@/sanity/lib/queries'
 
-async function getArtist(slug: string) {
-    const query = `*[_type == "artist" && slug.current == $slug][0] {
-    _id,
-    name,
-    slug,
-    image,
-    bio,
-    socialLinks,
-    tags
-  }`
-
-    const artist = await client
-        .withConfig({
-            useCdn: false,
-        })
-        .fetch(query, { slug })
-
-    return artist
-}
 
 export default async function ArtistPage({
     params,
 }: {
     params: { slug: string }
 }) {
+    const { slug } = params
 
-
-    const artist = await getArtist(params.slug)
+    const artist = await client
+        .withConfig({
+            useCdn: false,
+        })
+        .fetch(SINGLE_ARTISTS_QUERY, { slug })
 
     if (!artist) {
         return <div>Artist not found</div>
