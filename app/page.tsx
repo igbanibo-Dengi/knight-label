@@ -1,9 +1,13 @@
-import Link from "next/link";
+import { AppleCardsCarouselDemo } from "@/components/AppleCardsCarouselDemo";
+import { ContentCategories } from "@/components/ContentCategories";
+import { Hero } from "@/components/Hero";
 
 export default function Home() {
   return (
-    <div className="h-screen flex items-center justify-center">
-      <Link href="/artists">Artists</Link>
-    </div>
+    <>
+      <Hero />
+      <AppleCardsCarouselDemo />
+      <ContentCategories />
+    </>
   );
 }
