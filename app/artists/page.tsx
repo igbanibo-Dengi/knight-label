@@ -10,14 +10,7 @@ export const revalidate = 20
 
 export default async function ArtistsPage() {
 
-    // const posts = await sanityFetch({ query: POSTS_QUERY });
-
     const artists = await sanityFetch({ query: ARTISTS_QUERY });
-
-
-    // const artists = await client
-    // .fetch(ARTISTS_QUERY)
-
 
     return (
         <main className="container mx-auto py-8 px-4">
