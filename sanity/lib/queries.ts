@@ -5,6 +5,7 @@ export const ARTISTS_QUERY =
     _id,
     name,
     slug,
+    socialLinks,
     image,
   }`);
 

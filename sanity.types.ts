@@ -289,11 +289,16 @@ export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ./sanity/lib/queries.ts
 // Variable: ARTISTS_QUERY
-// Query: *[_type == "artist"] {    _id,    name,    slug,    image,  }
+// Query: *[_type == "artist"] {    _id,    name,    slug,    socialLinks,    image,  }
 export type ARTISTS_QUERYResult = Array<{
   _id: string;
   name: string | null;
   slug: Slug | null;
+  socialLinks: Array<{
+    platform?: string;
+    url?: string;
+    _key: string;
+  }> | null;
   image: {
     asset?: {
       _ref: string;
@@ -412,7 +417,7 @@ export type RECENT_VIDEOS_QUERYResult = Array<{
 import "@sanity/client";
 declare module "@sanity/client" {
   interface SanityQueries {
-    "*[_type == \"artist\"] {\n    _id,\n    name,\n    slug,\n    image,\n  }": ARTISTS_QUERYResult;
+    "*[_type == \"artist\"] {\n    _id,\n    name,\n    slug,\n    socialLinks,\n    image,\n  }": ARTISTS_QUERYResult;
     " * [_type == \"artist\" && slug.current == $slug][0] {\n    _id,\n    name,\n    slug,\n    image,\n    bio,\n    socialLinks,\n  }": SINGLE_ARTISTS_QUERYResult;
     "*[_type == \"comedyClip\"] {\n    _id,\n    title,\n    videoFile,\n    videos,\n    thumbnail,\n    socialMediaUrls,\n    releaseDate\n  }\n": COMEDY_CLIP_QUERYResult;
     "\n  *[_type == \"comedyClip\"] | order(releaseDate desc)[0...6] {\n    _id,\n    title,\n    thumbnail,\n    socialMediaUrls,\n    releaseDate\n  }\n": RECENT_VIDEOS_QUERYResult;
