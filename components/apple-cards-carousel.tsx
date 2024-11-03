@@ -19,6 +19,8 @@ import { ArrowLeft, ArrowRight, Play, X } from "lucide-react";
 import Link from "next/link";
 import { COMEDY_CLIP_QUERYResult, RECENT_VIDEOS_QUERYResult } from "@/sanity.types";
 import { urlFor } from "@/sanity/lib/image";
+import { format } from 'date-fns'
+
 
 interface CarouselProps {
     items: JSX.Element[];
@@ -158,11 +160,6 @@ export const Carousel = ({ items, initialScroll = 0 }: CarouselProps) => {
     );
 };
 
-interface RecentVideosProps {
-    videos: RECENT_VIDEOS_QUERYResult;
-}
-
-
 export const Card = ({
     card,
     index,
@@ -204,6 +201,8 @@ export const Card = ({
         onCardClose(index);
     };
 
+    const firstSocialLink = card.socialMediaUrls && card.socialMediaUrls.length > 0 ? card.socialMediaUrls[0].url : null;
+
     return (
         <>
             <AnimatePresence>
@@ -244,20 +243,23 @@ export const Card = ({
             <motion.div
                 layoutId={layout ? `card-${card.title}` : undefined}
                 // onClick={handleOpen}
-                className="rounded-3xl bg-gray-100 dark:bg-neutral-900 max-h-[500px] w-64 h-[400px] md:h-[40rem] md:w-96 overflow-hidden flex flex-col items-start justify-start relative group z-10"
+                className="rounded-3xl bg-gray-100 dark:bg-neutral-900 max-h-[400px] w-64 h-[400px] md:h-[40rem] md:w-72 overflow-hidden flex flex-col items-start justify-start relative group z-10"
             >
                 {/* <Link href={card.url}> */}
                 <div className=" h-full top-0 inset-x-0 bg-gradient-to-b from-black/50 via-transparent to-transparent z-30 pointer-events-none" />
                 <Link
-                    href="#"
+                    href={firstSocialLink || '#'} target="_blank" rel="noopener noreferrer"
                     className="relative z-40 p-8 mt-auto"
                 >
-                    <motion.p
+                    <motion.div
                         layoutId={layout ? `title-${card.title}` : undefined}
                         className="text-white text-xl md:text-2xl font-semibold max-w-xs text-left [text-wrap:balance] font-sans mt-2"
                     >
-                        {card.title}
-                    </motion.p>
+                        <p>  {card.title}</p>
+                        <p className="text-sm text-white">
+                            {card.releaseDate ? format(new Date(card.releaseDate), 'MMMM d, yyyy') : 'Release date not available'}
+                        </p>
+                    </motion.div>
 
                 </Link>
                 {card.thumbnail && (
@@ -265,11 +267,11 @@ export const Card = ({
                         src={urlFor(card.thumbnail).width(500).height(500).url()}
                         alt={card.title || "Video thumbnail"}
                         fill
-                        className="object-cover absolute z-10 inset-0 group-hover:scale-125 transition-all ease-in-out duration-700"
+                        className="object-center object-cover absolute z-10 inset-0 group-hover:scale-125 transition-all ease-in-out duration-700"
                     />
                 )}
                 <Link
-                    href="#"
+                    href={firstSocialLink || '#'} target="_blank" rel="noopener noreferrer"
                     className="absolute z-20 bg-black/60 inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300"
                 >
                     <Play className="text-white w-16 h-16" />
