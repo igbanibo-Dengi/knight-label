@@ -17,3 +17,25 @@ export const SINGLE_ARTISTS_QUERY =
     bio,
     socialLinks,
   }`);
+
+export const COMEDY_CLIP_QUERY =
+  defineQuery(`*[_type == "comedyClip"] {
+    _id,
+    title,
+    videoFile,
+    videos,
+    thumbnail,
+    socialMediaUrls,
+    releaseDate
+  }
+`);
+
+export const RECENT_VIDEOS_QUERY = defineQuery(`
+  *[_type == "comedyClip"] | order(releaseDate desc)[0...6] {
+    _id,
+    title,
+    thumbnail,
+    socialMediaUrls,
+    releaseDate
+  }
+`);

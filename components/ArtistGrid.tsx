@@ -7,7 +7,6 @@ import { urlFor } from '@/sanity/lib/image'
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import type { ARTISTS_QUERYResult } from '@/sanity.types'
 
-// type Artist = ARTISTS_QUERYResult[number]
 
 interface ArtistGridProps {
     artists: ARTISTS_QUERYResult

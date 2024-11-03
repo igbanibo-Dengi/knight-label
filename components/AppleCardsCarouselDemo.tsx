@@ -2,10 +2,15 @@
 import React from "react";
 import { Card, Carousel } from "@/components/apple-cards-carousel";
 import Link from "next/link";
+import { RECENT_VIDEOS_QUERYResult } from "@/sanity.types";
 
-export function AppleCardsCarouselDemo() {
-    const cards = data.map((card, index) => (
-        <Card key={card.src} card={card} index={index} />
+interface RecentVideosProps {
+    videos: RECENT_VIDEOS_QUERYResult
+}
+
+export function AppleCardsCarouselDemo({ videos }: RecentVideosProps) {
+    const cards = videos.map((card, index) => (
+        <Card key={card._id} card={card} index={index} />
     ));
 
     return (
@@ -15,53 +20,10 @@ export function AppleCardsCarouselDemo() {
             </h2>
             <Carousel items={cards} />
             <div className="container max-w-[1200px] -translate-y-5 mx-auto flex items-start pl-16 md:pl-10">
-                <Link href="#" className="btn-shine text-xl">View All</Link>
+                <Link href="#">
+                    <p className="btn-shine text-xl">View All</p>
+                </Link>
             </div>
         </div>
     );
 }
-
-const data = [
-    {
-        category: "Jazz",
-        title: "Smooth Jazz Evenings",
-        artist: "Blue Horizon Quartet",
-        src: "https://images.pexels.com/photos/164907/pexels-photo-164907.jpeg?auto=compress&cs=tinysrgb&w=800&h=1200&dpr=1",
-        url: "#",
-    },
-    {
-        category: "Rock",
-        title: "Electric Nights with Rock Legends",
-        artist: "The Rolling Waves",
-        src: "https://images.pexels.com/photos/20385068/pexels-photo-20385068/free-photo-of-tape-from-vintage-cassette.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-        url: "#",
-    },
-    {
-        category: "Pop",
-        title: "Top Hits of the Year",
-        artist: "Star Glow",
-        src: "https://images.pexels.com/photos/247931/pexels-photo-247931.jpeg?auto=compress&cs=tinysrgb&w=800&h=1200&dpr=1",
-        url: "#",
-    },
-    {
-        category: "Hip-Hop",
-        title: "Beats and Rhymes",
-        artist: "Beatz Nation",
-        src: "https://images.pexels.com/photos/1667414/pexels-photo-1667414.jpeg?auto=compress&cs=tinysrgb&w=800&h=1200&dpr=1",
-        url: "#",
-    },
-    {
-        category: "Classical",
-        title: "Timeless Symphony",
-        artist: "Orchestra Royale",
-        src: "https://images.pexels.com/photos/217948/pexels-photo-217948.jpeg?auto=compress&cs=tinysrgb&w=800&h=1200&dpr=1",
-        url: "#",
-    },
-    {
-        category: "Electronic",
-        title: "High Energy Beats",
-        artist: "Synth Vibe",
-        src: "https://images.pexels.com/photos/1440298/pexels-photo-1440298.jpeg?auto=compress&cs=tinysrgb&w=800&h=1200&dpr=1",
-        url: "#",
-    },
-];

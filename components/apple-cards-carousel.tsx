@@ -17,6 +17,8 @@ import Image, { ImageProps } from "next/image";
 import { useOutsideClick } from "@/hooks/use-outside-click";
 import { ArrowLeft, ArrowRight, Play, X } from "lucide-react";
 import Link from "next/link";
+import { COMEDY_CLIP_QUERYResult, RECENT_VIDEOS_QUERYResult } from "@/sanity.types";
+import { urlFor } from "@/sanity/lib/image";
 
 interface CarouselProps {
     items: JSX.Element[];
@@ -156,12 +158,17 @@ export const Carousel = ({ items, initialScroll = 0 }: CarouselProps) => {
     );
 };
 
+interface RecentVideosProps {
+    videos: RECENT_VIDEOS_QUERYResult;
+}
+
+
 export const Card = ({
     card,
     index,
     layout = false,
 }: {
-    card: Card;
+    card: RECENT_VIDEOS_QUERYResult[number];
     index: number;
     layout?: boolean;
 }) => {
@@ -222,12 +229,7 @@ export const Card = ({
                             >
                                 <X className="h-6 w-6 text-neutral-100 dark:text-neutral-900" />
                             </button>
-                            <motion.p
-                                layoutId={layout ? `category-${card.title}` : undefined}
-                                className="text-base font-medium text-black dark:text-white"
-                            >
-                                {card.category}
-                            </motion.p>
+
                             <motion.p
                                 layoutId={layout ? `title-${card.title}` : undefined}
                                 className="text-2xl md:text-5xl font-semibold text-neutral-700 mt-4 dark:text-white"
@@ -246,33 +248,30 @@ export const Card = ({
             >
                 {/* <Link href={card.url}> */}
                 <div className=" h-full top-0 inset-x-0 bg-gradient-to-b from-black/50 via-transparent to-transparent z-30 pointer-events-none" />
-                <Link href={card.url} className="relative z-40 p-8 mt-auto">
-                    <motion.p
-                        layoutId={layout ? `category-${card.category}` : undefined}
-                        className="text-white text-sm md:text-base font-medium font-sans text-left"
-                    >
-                        {card.category}
-                    </motion.p>
+                <Link
+                    href="#"
+                    className="relative z-40 p-8 mt-auto"
+                >
                     <motion.p
                         layoutId={layout ? `title-${card.title}` : undefined}
                         className="text-white text-xl md:text-2xl font-semibold max-w-xs text-left [text-wrap:balance] font-sans mt-2"
                     >
                         {card.title}
                     </motion.p>
-                    <motion.p
-                        layoutId={layout ? `title-${card.title}` : undefined}
-                        className="text-white text-lg font-semibold max-w-xs text-left [text-wrap:balance] font-sans mt-2"
-                    >
-                        {card.artist}
-                    </motion.p>
+
                 </Link>
-                <Image
-                    src={card.src}
-                    alt={card.title}
-                    fill
-                    className="object-cover absolute z-10 inset-0 group-hover:scale-125 transition-all ease-in-out duration-700"
-                />
-                <Link href={card.url} className="absolute z-20 bg-black/60 inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                {card.thumbnail && (
+                    <Image
+                        src={urlFor(card.thumbnail).width(500).height(500).url()}
+                        alt={card.title || "Video thumbnail"}
+                        fill
+                        className="object-cover absolute z-10 inset-0 group-hover:scale-125 transition-all ease-in-out duration-700"
+                    />
+                )}
+                <Link
+                    href="#"
+                    className="absolute z-20 bg-black/60 inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                >
                     <Play className="text-white w-16 h-16" />
                 </Link>
                 {/* </Link> */}
@@ -280,7 +279,6 @@ export const Card = ({
         </>
     );
 };
-
 export const BlurImage = ({
     height,
     width,

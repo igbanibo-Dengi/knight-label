@@ -46,6 +46,42 @@ export type Geopoint = {
   alt?: number;
 };
 
+export type ComedyClip = {
+  _id: string;
+  _type: "comedyClip";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  title?: string;
+  videoFile?: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.fileAsset";
+    };
+    _type: "file";
+  };
+  thumbnail?: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+  };
+  socialMediaUrls?: Array<{
+    platform?: "instagram" | "youtube" | "twitter" | "facebook" | "tiktok" | "other";
+    url?: string;
+    _type: "socialMediaUrl";
+    _key: string;
+  }>;
+  releaseDate?: string;
+};
+
 export type VideoClip = {
   _id: string;
   _type: "videoClip";
@@ -168,7 +204,7 @@ export type Artist = {
       _type: "span";
       _key: string;
     }>;
-    style?: "normal" | "h2" | "h3" | "blockquote";
+    style?: "normal" | "h2" | "h3";
     listItem?: "bullet" | "number";
     markDefs?: Array<{
       href?: string;
@@ -184,7 +220,6 @@ export type Artist = {
     url?: string;
     _key: string;
   }>;
-  tags?: Array<string>;
 };
 
 export type SanityImageCrop = {
@@ -250,7 +285,7 @@ export type Slug = {
   source?: string;
 };
 
-export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | Geopoint | VideoClip | SanityFileAsset | Release | Artist | SanityImageCrop | SanityImageHotspot | SanityImageAsset | SanityAssetSourceData | SanityImageMetadata | Slug;
+export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | Geopoint | ComedyClip | VideoClip | SanityFileAsset | Release | Artist | SanityImageCrop | SanityImageHotspot | SanityImageAsset | SanityAssetSourceData | SanityImageMetadata | Slug;
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ./sanity/lib/queries.ts
 // Variable: ARTISTS_QUERY
@@ -297,7 +332,7 @@ export type SINGLE_ARTISTS_QUERYResult = {
       _type: "span";
       _key: string;
     }>;
-    style?: "blockquote" | "h2" | "h3" | "normal";
+    style?: "h2" | "h3" | "normal";
     listItem?: "bullet" | "number";
     markDefs?: Array<{
       href?: string;
@@ -314,6 +349,64 @@ export type SINGLE_ARTISTS_QUERYResult = {
     _key: string;
   }> | null;
 } | null;
+// Variable: COMEDY_CLIP_QUERY
+// Query: *[_type == "comedyClip"] {    _id,    title,    videoFile,    videos,    thumbnail,    socialMediaUrls,    releaseDate  }
+export type COMEDY_CLIP_QUERYResult = Array<{
+  _id: string;
+  title: string | null;
+  videoFile: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.fileAsset";
+    };
+    _type: "file";
+  } | null;
+  videos: null;
+  thumbnail: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+  } | null;
+  socialMediaUrls: Array<{
+    platform?: "facebook" | "instagram" | "other" | "tiktok" | "twitter" | "youtube";
+    url?: string;
+    _type: "socialMediaUrl";
+    _key: string;
+  }> | null;
+  releaseDate: string | null;
+}>;
+// Variable: RECENT_VIDEOS_QUERY
+// Query: *[_type == "comedyClip"] | order(releaseDate desc)[0...6] {    _id,    title,    thumbnail,    socialMediaUrls,    releaseDate  }
+export type RECENT_VIDEOS_QUERYResult = Array<{
+  _id: string;
+  title: string | null;
+  thumbnail: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+  } | null;
+  socialMediaUrls: Array<{
+    platform?: "facebook" | "instagram" | "other" | "tiktok" | "twitter" | "youtube";
+    url?: string;
+    _type: "socialMediaUrl";
+    _key: string;
+  }> | null;
+  releaseDate: string | null;
+}>;
 
 // Query TypeMap
 import "@sanity/client";
@@ -321,5 +414,7 @@ declare module "@sanity/client" {
   interface SanityQueries {
     "*[_type == \"artist\"] {\n    _id,\n    name,\n    slug,\n    image,\n  }": ARTISTS_QUERYResult;
     " * [_type == \"artist\" && slug.current == $slug][0] {\n    _id,\n    name,\n    slug,\n    image,\n    bio,\n    socialLinks,\n  }": SINGLE_ARTISTS_QUERYResult;
+    "*[_type == \"comedyClip\"] {\n    _id,\n    title,\n    videoFile,\n    videos,\n    thumbnail,\n    socialMediaUrls,\n    releaseDate\n  }\n": COMEDY_CLIP_QUERYResult;
+    "\n  *[_type == \"comedyClip\"] | order(releaseDate desc)[0...6] {\n    _id,\n    title,\n    thumbnail,\n    socialMediaUrls,\n    releaseDate\n  }\n": RECENT_VIDEOS_QUERYResult;
   }
 }
