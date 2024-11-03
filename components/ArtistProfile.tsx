@@ -21,7 +21,7 @@ const components: PortableTextComponents = {
                     alt={value.alt || ' '}
                     width={800}
                     height={600}
-                    className="rounded-lg filter grayscale"
+                    className="rounded-lg"
                 />
             </div>
         ),
@@ -53,7 +53,7 @@ export default function ArtistProfile({ artist }: { artist: SINGLE_ARTISTS_QUERY
                             src={urlFor(artist.image).width(500).height(500).url()}
                             alt={artist.name || "Artist image"}
                             fill
-                            className="object-cover filter grayscale"
+                            className="object-cover"
                             priority
                         />
                     </div>

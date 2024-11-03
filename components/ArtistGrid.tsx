@@ -28,10 +28,10 @@ export function ArtistGrid({ artists }: ArtistGridProps) {
                                     src={urlFor(artist.image).width(600).height(600).url()}
                                     alt={artist.name || "Artist image"}
                                     fill
-                                    className="object-cover filter grayscale transition-all duration-500 group-hover:scale-105"
+                                    className="object-cover grayscale hover:grayscale-0 transition-all duration-500 group-hover:scale-105"
                                 />
                             )}
-                            <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                            {/* <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" /> */}
                         </div>
                         <h2 className="mt-4 text-2xl font-bold tracking-wider">
                             {artist.name?.toUpperCase()}
