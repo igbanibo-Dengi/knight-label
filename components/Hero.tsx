@@ -1,8 +1,9 @@
 'use client'
 
-import { useState, useEffect } from 'react'
-import { motion } from 'framer-motion'
+import { useState, useEffect, useRef } from 'react'
+import { AnimatePresence, motion, useScroll, useTransform } from 'framer-motion'
 import { Button } from "@/components/ui/button"
+import Image from 'next/image'
 
 const images = [
     "https://images.pexels.com/photos/2747449/pexels-photo-2747449.jpeg?auto=compress&cs=tinysrgb&w=1920&h=1080&dpr=1",
@@ -21,6 +22,15 @@ export function Hero() {
 
         return () => clearInterval(timer)
     }, [])
+
+    const containerRef = useRef<HTMLDivElement>(null)
+    const { scrollYProgress } = useScroll({
+        target: containerRef,
+        offset: ['start start', 'end end']
+    })
+
+    const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0])
+    const scale = useTransform(scrollYProgress, [0, 0.2, 0.5], [1, 0.5, 0.3])
 
     return (
         <section className="relative h-screen w-full flex items-center justify-center overflow-hidden bg-[url('https://images.pexels.com/photos/114820/pexels-photo-114820.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1')] bg-fixed bg-cover bg-opacity-50">
@@ -43,34 +53,41 @@ export function Hero() {
                 </motion.div>
             </AnimatePresence> */}
             <div className="relative z-10 text-center bg-black/80 size-full flex items-center justify-center">
-                <div>
+                <motion.section
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.8 }}
+                >
 
                     <motion.h1
                         className="text-5xl md:text-6xl xl:text-8xl font-bold mb-4 text-[#C1A355]"
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.8, delay: 0.2 }}
+                        // initial={{ opacity: 0, y: 20 }}
+                        // animate={{ opacity: 1, y: 0 }}
+                        // transition={{ duration: 0.8, delay: 0.2 }}
+                        style={{ opacity, scale }}
                     >
                         Knight <br /> Entertainment <br /> Empire
                     </motion.h1>
                     <motion.p
                         className="text-xl mb-8 text-white"
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.8, delay: 0.4 }}
+                    // initial={{ opacity: 0, y: 20 }}
+                    // animate={{ opacity: 1, y: 0 }}
+                    // transition={{ duration: 0.8, delay: 0.4 }}
+                    // style={{ opacity, scale }}
                     >
                         Where Music Meets Comedy
                     </motion.p>
                     <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.8, delay: 0.6 }}
+                    // initial={{ opacity: 0, y: 20 }}
+                    // animate={{ opacity: 1, y: 0 }}
+                    // transition={{ duration: 0.8, delay: 0.6 }}
+                    // style={{ opacity, scale }}
                     >
                         <Button className="" size={"lg"}>
                             Explore Our Content
                         </Button>
                     </motion.div>
-                </div>
+                </motion.section>
             </div>
             {/* <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2">
                 {images.map((_, index) => (

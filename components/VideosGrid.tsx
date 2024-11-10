@@ -113,9 +113,9 @@ export function VideosGrid({ videos }: VideosGridProps) {
             )}
 
             <Dialog open={!!selectedVideo} onOpenChange={(open) => !open && setSelectedVideo(null)}>
-                <DialogContent className="w-fit max-h-screen">
-                    <DialogClose className="absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-accent data-[state=open]:text-muted-foreground">
-                        <X className="h-4 w-4" />
+                <DialogContent className="w-[80%] md:w-fit max-h-screen p-0">
+                    <DialogClose className="absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-accent data-[state=open]:text-muted-foreground z-50">
+                        <Button className='bg-white z-10'>Close</Button>
                         <span className="sr-only">Close</span>
                     </DialogClose>
                     <AnimatePresence>
@@ -125,10 +125,11 @@ export function VideosGrid({ videos }: VideosGridProps) {
                                 initial={{ opacity: 0 }}
                                 animate={{ opacity: 1 }}
                                 exit={{ opacity: 0 }}
+                                className='relative'
                             >
-                                <h2 className="text-lg font-semibold mb-4">{selectedVideo.title}</h2>
+                                <h2 className="text-sm font-semibold mb-4 absolute bottom-20 left-5">{selectedVideo.title}</h2>
                                 {selectedVideo.videoFile && selectedVideo.videoFile.asset && (
-                                    <video controls className="w-full max-h-[500px] rounded-lg mb-4">
+                                    <video controls className="w-full h-full md:max-h-[600px] rounded-lg mb-4">
                                         <source
                                             src={`https://cdn.sanity.io/files/${process.env.NEXT_PUBLIC_SANITY_PROJECT_ID}/${process.env.NEXT_PUBLIC_SANITY_DATASET}/${selectedVideo.videoFile.asset._ref.replace('file-', '').replace('-mp4', '.mp4')}`}
                                             type="video/mp4"
@@ -136,26 +137,6 @@ export function VideosGrid({ videos }: VideosGridProps) {
                                         Your browser does not support the video tag.
                                     </video>
                                 )}
-                                <div className="flex justify-between items-center">
-                                    <p className="text-sm text-gray-400">
-                                        {selectedVideo.releaseDate
-                                            ? format(new Date(selectedVideo.releaseDate), 'MMMM d, yyyy')
-                                            : 'Release date not available'}
-                                    </p>
-                                    <div className="flex space-x-2">
-                                        {selectedVideo.socialMediaUrls?.map((social) => (
-                                            <a
-                                                key={social._key}
-                                                href={social.url || '#'}
-                                                target="_blank"
-                                                rel="noopener noreferrer"
-                                                className="text-gray-400 hover:text-[#C1A355] transition-colors"
-                                            >
-                                                {getPlatformIcon(social.platform || 'other')}
-                                            </a>
-                                        ))}
-                                    </div>
-                                </div>
                             </motion.div>
                         )}
                     </AnimatePresence>
