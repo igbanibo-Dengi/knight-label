@@ -136,7 +136,7 @@ export default function Component() {
                             <Music className="w-12 h-12 text-gold-500 mb-4" />
                             <h3 className="text-2xl md:text-4xl 2xl:text-6xl font-bold text-gold-500">Music Division</h3>
                             <p className="text-gray-300">
-                                Discover our talented artists and their latest tracks. We're dedicated to producing
+                                Discover our talented artists and their latest tracks. We&apos;re dedicated to producing
                                 and promoting authentic, innovative music across all genres.
                             </p>
                             <Button variant="outline" className="bg-transparent">
@@ -155,7 +155,7 @@ export default function Component() {
                             <h3 className="text-2xl md:text-4xl 2xl:text-6xl font-bold text-gold-500">Comedy Content</h3>
                             <p className="text-gray-300">
                                 Experience hilarious original content from our talented comedians. From stand-up
-                                to sketches, we're creating laughter that resonates.
+                                to sketches, we&apos;re creating laughter that resonates.
                             </p>
                             <Button variant="outline" className='bg-transparent'>
                                 Watch Videos
@@ -198,7 +198,7 @@ export default function Component() {
                                 exit={{ opacity: 0, y: -10 }}
                                 className="text-sm text-gold-500"
                             >
-                                Thank you for your interest! We'll be in touch soon.
+                                Thank you for your interest! We&apos;ll be in touch soon.
                             </motion.div>
                         )}
                     </AnimatePresence>
