@@ -9,7 +9,7 @@ export default async function VideosPage() {
 
     return (
         <main className="min-h-screen bg-black text-white">
-            <div className="relative py-16 px-4">
+            <div className="relative py-16">
                 {/* Background gradient overlay */}
                 <div className="absolute inset-0 bg-gradient-to-br from-black via-black/95 to-black/90" />
 

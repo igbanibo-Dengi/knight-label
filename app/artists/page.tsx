@@ -7,10 +7,7 @@ export default async function ArtistsPage() {
 
     return (
         <main className="min-h-screen bg-black text-white">
-            <div className="relative py-16 px-4">
-                {/* Background gradient overlay */}
-                {/* <div className="absolute inset-0 bg-gradient-to-br from-black via-black/95 to-black/90" /> */}
-
+            <div className="relative py-16">
                 <h1 className="text-8xl md:text-9xl font-bold mb-12 text-center tracking-tighter fixed w-full">
                     ARTISTS
                 </h1>
